@@ -1,25 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useMemo} from 'react';
+import {CartShoppingProvider} from "./client/Contexts/CartShopping"
+import Card from './client/Components/Card'
+import Header from './client/Components/Header'
 import './App.css';
 
 function App() {
+
+  const [cartShopping, setCartShopping] = useState([]);
+
+  const providerValue = useMemo(
+    () => ({ cartShopping, setCartShopping }),
+    [cartShopping, setCartShopping]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartShoppingProvider value={providerValue}>
+      <Header/>
+      <Card/>
+    </CartShoppingProvider>
   );
 }
 
