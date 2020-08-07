@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Rose:wght@700&display=swap');
+
+body {
+    background-image: url('./assets/stars.jpg');
+    background-size: cover;
+    font-family: 'Red Rose', cursive;
+}

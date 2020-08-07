@@ -2,44 +2,57 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import CartShoppingContext from "../Contexts/CartShopping";
-import img from '../../assets/starfighter.jpeg'
+import img from "../../assets/starfighter.jpeg";
+import bgimg from "../../assets/galaxy.jpg";
 // STYLE -
 const StyledTitle = styled.h1`
   color: pink;
 `;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 600px;
-`;
 const CardWrapper = styled.div`
-     font-size:1em
-     display: flex;
-     /* flex-direction: row; */
-     background-color: lightcyan;
-     width: 100%;
-     height: 100%;
-     border-radius: 30px;
+  font-size:1em;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 30px;
+  flex-direction: column;
+  background-image: url(${bgimg});
+  background-size: cover;
+  margin:10px;
+
  `;
 const StyledImage = styled.img`
-position:relative;
-    border-radius: 30px;
-    margin:100px;
-    height: 200px;
-    width:200px;
+  position: relative;
+  border-radius: 30px;
+  margin: 60px;
+  height: 200px;
+  width: 200px;
+`;
+const StyledDiv = styled.div`
+  display: contents;
+`;
+const Button = styled.button`
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+  background-color: #ededed;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #777777;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  &:hover {
+    background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+    background-color: #dfdfdf;
+  }
 `;
 
-function Card() {
-  const { cartShopping, setCartShopping } = useContext(CartShoppingContext);
-
-  var apiURL = "https://swapi.dev/api/vehicles/";
-  const [listOfVehicules, setListOfVehicules] = useState();
-
-  if (!listOfVehicules) {
-    axios.get(apiURL).then((res) => {
-      setListOfVehicules(res.data.results);
-    });
-  }
+function Card({ vehicule }) {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const { cartShopping, setCartShopping, setIsCartFull } = useContext(CartShoppingContext);
 
   const handleClick = async (event, nameVehicule, idButton) => {
     let buttonClicked = document.getElementById(idButton);
@@ -52,10 +65,10 @@ function Card() {
           newCartValue.push(res.data.results);
         });
       setCartShopping(newCartValue);
+      setIsCartFull(true);
       buttonClicked.innerText = "Cancel reservation";
     } else if (buttonClicked.innerText === "Cancel reservation") {
       for (let i = 0; i < cartShopping.length; i++) {
-        console.log("cartshopping", cartShopping);
         if (cartShopping[i][0].name.includes(nameVehicule)) {
           const index = cartShopping.findIndex(
             (item) => item[0].name === nameVehicule
@@ -70,40 +83,46 @@ function Card() {
     }
   };
 
-  let listVehiculesToDisplay;
-  if (listOfVehicules) {
+  const handleClickModal = (event) => {
+    event.preventDefault();
+    setModalOpen(!isModalOpen);
+  };
 
-
-
-    listVehiculesToDisplay = listOfVehicules.map((vehicule) => (
-      <CardWrapper key={`${vehicule.name}wrapper`}>
-        <StyledImage src={img} />
-        <StyledTitle>name :</StyledTitle> {vehicule.name}
-        <p>model :</p> {vehicule.model}
-        <p> number of seats : </p> crew: {vehicule.crew} passengers:{" "}
-        {vehicule.passengers}
-        <p> Cost :</p> {vehicule.cost_in_credits}
-        <br />
-        {vehicule.cost_in_credits !== "unknown" && (
-          <button
-            id={`${vehicule.name}button`}
-            onClick={(event) =>
-              handleClick(event, vehicule.name, `${vehicule.name}button`)
-            }
-          >
-            Make a reservation
-          </button>
-        )}
-        {vehicule.cost_in_credits === "unknown" && (
-          <p> this vehicule isn't available </p>
-        )}
-      </CardWrapper>
-    ));
-  }
   return (
-    <Container>
-      {listVehiculesToDisplay}
-    </Container>
+    <>
+      {vehicule && (
+        <CardWrapper key={`${vehicule.name}wrapper`}>
+          <StyledImage src={img} id={`${vehicule.name}img`} />
+          <Button onClick={(event) => handleClickModal(event)}>
+            {" "}
+            {isModalOpen ? "show less" : "show more"}{" "}
+          </Button>
+          {isModalOpen && (
+            <StyledDiv id={`${vehicule.name}modal`}>
+              <StyledTitle>name :</StyledTitle> {vehicule.name}
+              <p>model :</p> {vehicule.model}
+              <p> number of seats : </p> crew: {vehicule.crew} passengers:{" "}
+              {vehicule.passengers}
+              <p> Cost :</p> {vehicule.cost_in_credits}
+              <br />
+              {vehicule.cost_in_credits !== "unknown" && (
+                <Button
+                  id={`${vehicule.name}button`}
+                  onClick={(event) =>
+                    handleClick(event, vehicule.name, `${vehicule.name}button`)
+                  }
+                >
+                  Make a reservation
+                </Button>
+              )}
+              {vehicule.cost_in_credits === "unknown" && (
+                <p> this vehicule isn't available </p>
+              )}
+            </StyledDiv>
+          )}
+        </CardWrapper>
+      )}
+    </>
   );
 }
 

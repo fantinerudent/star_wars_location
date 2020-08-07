@@ -1,28 +1,25 @@
-import React, { useContext } from "react";
-import CartShoppingContext from "../Contexts/CartShopping";
+import React from "react";
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+  width: 100%;
+  height: 100px;
+  background-color: black;
+  color: white;
+  font-size: 4em;
+  justify-content: center;
+  &:first-child  {
+    margin: auto;
+    text-align: center;
+   }
+`
+
 
 function Header() {
-  const { cartShopping, setCartShopping } = useContext(CartShoppingContext);
-
   return (
-    <>
-      <h1>ma flotte</h1>
-
-      <>
-        {cartShopping &&
-          cartShopping.map((vehicule) => {
-            for (let i = 0; i < cartShopping.length; i++) {
-              return (
-                <div key={`${vehicule[i].name}key`}>
-                  name: {vehicule[i].name}, model: {vehicule[i].model}, crew:{" "}
-                  {vehicule[i].crew}, passengers: {vehicule[i].passengers},
-                  price: {vehicule[i].cost_in_credits}
-                </div>
-              );
-            }
-          })}
-      </>
-    </>
+    <StyledDiv>
+     <p>Spaceship shop'</p> 
+    </StyledDiv>
   );
 }
 
