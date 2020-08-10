@@ -2,14 +2,14 @@ import React from "react";
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-  width: 100%;
+  width: 83vw;
   height: 100px;
+  top:0;
   background-color: black;
   color: white;
   font-size: 4em;
-  justify-content: center;
   &:first-child  {
-    margin: auto;
+    margin: 0;
     text-align: center;
    }
 `
@@ -18,7 +18,7 @@ const StyledDiv = styled.div`
 function Header() {
   return (
     <StyledDiv>
-     <p>Spaceship shop'</p> 
+     <div>Spaceship shop'</div> 
     </StyledDiv>
   );
 }
