@@ -2,22 +2,23 @@ import React, {useContext} from "react";
 import styled from "styled-components";
 import CartShoppingContext from "../Contexts/CartShopping";
 
-const StyledLi = styled.li`
+const StyledA = styled.a`
     font-size:2em;
     text-decoration: none;
-    background-color: white;
+    outline: none;
     color: yellow;
 `;
 
 const Container = styled.div`
   display: flex;
+  color: white;
 `;
 
 function Pagination({ totalNumberOfVehicles, vehiclesPerPage }) {
     const {setCurrentPage } = useContext(CartShoppingContext);
   const pageNumbers = [];
   for (
-    let i = 0;
+    let i = 1;
     i <= Math.ceil(totalNumberOfVehicles / vehiclesPerPage);
     i++
   ) {
@@ -27,9 +28,9 @@ function Pagination({ totalNumberOfVehicles, vehiclesPerPage }) {
   return (
     <Container>
       {pageNumbers.map((number) => (
-        <StyledLi key={number}>
-          <a onClick={() => {setCurrentPage(number)}} href="!#"> {number}</a>
-        </StyledLi>
+        <li key={number}>
+         Page : <StyledA onClick={() => {setCurrentPage(number)}} href="!#"> {number}</StyledA>
+        </li>
       ))}
     </Container>
   );

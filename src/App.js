@@ -13,7 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 65%;
 `;
 
 function App() {
@@ -22,22 +22,40 @@ function App() {
   const [totalNumberOfVehicles, setTotalNumberOfVehicles] = useState();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
- 
-  const [vehiclesPerPage, setVehiclesPerPage] = useState(8);
-
+  const [vehiclesPerPage] = useState(6);
 
   useEffect(() => {
     const fetchVehicles = async () => {
       setLoading(true);
-        const res = await axios.get('https://swapi.dev/api/vehicles/');
-      setListOfVehicles(res.data.results);
-      setTotalNumberOfVehicles(res.data.count);
+      let arrayOfVehicles = [];
+      let resPage1 = await axios.get(`https://swapi.dev/api/vehicles/?page=1`);
+      let resPage2 = await axios.get(`https://swapi.dev/api/vehicles/?page=2`);
+      let resPage3 = await axios.get(`https://swapi.dev/api/vehicles/?page=3`);
+      let resPage4 = await axios.get(`https://swapi.dev/api/vehicles/?page=4`);
+
+      resPage1 = resPage1.data.results;
+      resPage1.map((vehicle) => {
+        arrayOfVehicles.push(vehicle);
+      });
+      resPage2 = resPage2.data.results;
+      resPage2.map((vehicle) => {
+        arrayOfVehicles.push(vehicle);
+      });
+      resPage3 = resPage3.data.results;
+      resPage3.map((vehicle) => {
+        arrayOfVehicles.push(vehicle);
+      });
+      resPage4 = resPage4.data.results;
+      resPage4.map((vehicle) => {
+        arrayOfVehicles.push(vehicle);
+      });
+      setListOfVehicles(arrayOfVehicles);
+      setTotalNumberOfVehicles(arrayOfVehicles.length);
       setLoading(false);
     };
-    fetchVehicles();
-  }, [listOfVehicles, totalNumberOfVehicles]);
 
-  console.log("listOfvehicules", listOfVehicles);
+    fetchVehicles();
+  }, []);
 
   const providerValue = useMemo(
     () => ({

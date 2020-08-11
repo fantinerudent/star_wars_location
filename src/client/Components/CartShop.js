@@ -10,6 +10,7 @@ const Container = styled.div`
   top: 0;
   right: 0;
   color: white;
+  overflow: scroll;
 `;
 
 const TitleDisplay = styled.span`
@@ -23,10 +24,6 @@ const ItemContainer = styled.div`
   border-radius: 10px;
 `;
 
-const Trashcan = styled.span`
-  cursor: pointer;
-`;
-
 function CartShop() {
   const { cartShopping } = useContext(CartShoppingContext);
 
@@ -35,12 +32,10 @@ function CartShop() {
     cartShopping.map((vehicule) => {
       console.log(typeof vehicule[0].cost_in_credits);
       let result = Number(vehicule[0].cost_in_credits);
-      console.log(typeof result);
       return (sum = sum + result);
     });
   }
 
-  console.log("sum", sum);
   return (
     <Container>
       <span> CARTSHOP :</span>
