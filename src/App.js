@@ -9,15 +9,15 @@ import CartShop from "./client/Components/CartShop";
 import styled from "styled-components";
 import "./App.css";
 
-const Container = styled.div`
+const VehiclesContainer = styled.div`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  width: 65%;
+  height: 85vh;
 `;
 
 function App() {
   const [cartShopping, setCartShopping] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [listOfVehicles, setListOfVehicles] = useState([]);
   const [totalNumberOfVehicles, setTotalNumberOfVehicles] = useState();
   const [loading, setLoading] = useState(false);
@@ -35,18 +35,22 @@ function App() {
 
       resPage1 = resPage1.data.results;
       resPage1.map((vehicle) => {
+        vehicle.booked = false;
         arrayOfVehicles.push(vehicle);
       });
       resPage2 = resPage2.data.results;
       resPage2.map((vehicle) => {
+        vehicle.booked = false;
         arrayOfVehicles.push(vehicle);
       });
       resPage3 = resPage3.data.results;
       resPage3.map((vehicle) => {
+        vehicle.booked = false;
         arrayOfVehicles.push(vehicle);
       });
       resPage4 = resPage4.data.results;
       resPage4.map((vehicle) => {
+        vehicle.booked = false;
         arrayOfVehicles.push(vehicle);
       });
       setListOfVehicles(arrayOfVehicles);
@@ -59,6 +63,8 @@ function App() {
 
   const providerValue = useMemo(
     () => ({
+      isModalOpen,
+      setModalOpen,
       cartShopping,
       setCartShopping,
       setCurrentPage,
@@ -66,7 +72,7 @@ function App() {
       loading,
       setLoading,
     }),
-    [cartShopping, setCartShopping, listOfVehicles, loading, setLoading]
+    [isModalOpen, cartShopping, listOfVehicles, loading]
   );
 
   const indexOfLastVehicle = currentPage * vehiclesPerPage;
@@ -78,15 +84,15 @@ function App() {
 
   return (
     <CartShoppingProvider value={providerValue}>
-      <Header />
-      <CartShop />
-      <Container>
-        <Vehicles currentVehicles={currentVehicles} loading={loading} />
+        <Header />
+        <CartShop />
+        <VehiclesContainer>
+          <Vehicles currentVehicles={currentVehicles} loading={loading} />
+        </VehiclesContainer>
         <Pagination
           vehiclesPerPage={vehiclesPerPage}
           totalNumberOfVehicles={totalNumberOfVehicles}
         />
-      </Container>
     </CartShoppingProvider>
   );
 }

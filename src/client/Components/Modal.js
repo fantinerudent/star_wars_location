@@ -24,32 +24,27 @@ const Button = styled.button`
     background-color: #dfdfdf;
   }
 `;
-
-const StyledTH = styled.th`
+const StyledDiv = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
-  color: yellow;
-  font-size: 1.3em;
 `;
 
 const StyledP = styled.p`
   text-decoration: underline;
   color: yellow;
-  margin-left: 100px;
-`;
-
-const StyledTable = styled.table`
-  color: white;
+  position: relative;
+  margin: 0 auto;
+  font-size: 2em;
 `;
 
 function Modal({ vehicle }) {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isVehicleBooked, setVehicleBooked] = useState(vehicle.booked);
   const { cartShopping, setCartShopping } = useContext(CartShoppingContext);
 
-  const handleClick = async (event, nameVehicule, idButton) => {
-    let buttonClicked = document.getElementById(idButton);
-
-    if (buttonClicked.innerText === "Make a reservation") {
+  const handleClick = async (event, vehicle, nameVehicule, idButton) => {
+    if (!isVehicleBooked) {
       let newCartValue = [...cartShopping];
       await axios
         .get(`https://swapi.dev/api/vehicles/?search=${nameVehicule}`)
@@ -57,8 +52,7 @@ function Modal({ vehicle }) {
           newCartValue.push(res.data.results);
         });
       setCartShopping(newCartValue);
-      buttonClicked.innerText = "Cancel reservation";
-    } else if (buttonClicked.innerText === "Cancel reservation") {
+    } else if (isVehicleBooked) {
       for (let i = 0; i < cartShopping.length; i++) {
         if (cartShopping[i][0].name.includes(nameVehicule)) {
           const index = cartShopping.findIndex(
@@ -68,10 +62,12 @@ function Modal({ vehicle }) {
           let copyArrayCartShopping = [...cartShopping];
           copyArrayCartShopping.splice(index, 1);
           setCartShopping(copyArrayCartShopping);
-          buttonClicked.innerText = "Make a reservation";
         }
       }
     }
+    vehicle.booked = !vehicle.booked;
+    setVehicleBooked(vehicle.booked);
+    setModalOpen(!isModalOpen);
   };
 
   const handleClickModal = (event, modalId) => {
@@ -80,7 +76,7 @@ function Modal({ vehicle }) {
   };
 
   return (
-    <div>
+    <StyledDiv>
       <Button
         id={`${vehicle.name}button-modal`}
         onClick={(event) => handleClickModal(event)}
@@ -89,31 +85,45 @@ function Modal({ vehicle }) {
       </Button>
       {isModalOpen && (
         <>
-          <StyledTable>
-            <tr>
-              <StyledTH>model :</StyledTH>
-              <th> {vehicle.model} </th>
-            </tr>
-            <tr>
-              <StyledTH>number of seats :</StyledTH>
-              <th>
-                crew: {vehicle.crew}
-              </th>
-              <th>
-                passengers: {vehicle.passengers}
-              </th>
-            </tr>
-            <StyledTH> Cost :</StyledTH>
-            <th> {vehicle.cost_in_credits} </th>
-          </StyledTable>
+          <table
+            style={{
+              color: "white",
+              fontSize: "2em",
+              position: "relative",
+              maxWidth: "400px",
+              alignSelf: "center"
+            }}
+            border="2"
+          >
+            <tbody>
+              <tr>
+                <th> Model : </th>
+                <th> Number of seats : </th>
+                <th> Cost: </th>
+              </tr>
+              <tr>
+                <td>{vehicle.model}</td>
+                <td>
+                  crew: {vehicle.crew} - passengers: {vehicle.passengers}
+                </td>
+                <td>{vehicle.cost_in_credits}</td>
+              </tr>
+            </tbody>
+          </table>
+
           {vehicle.cost_in_credits !== "unknown" && (
             <Button
               id={`${vehicle.name}button`}
               onClick={(event) =>
-                handleClick(event, vehicle.name, `${vehicle.name}button`)
+                handleClick(
+                  event,
+                  vehicle,
+                  vehicle.name,
+                  `${vehicle.name}button`
+                )
               }
             >
-              Make a reservation
+              {isVehicleBooked ? 'Cancel reservation' : 'Make a reservation'}
             </Button>
           )}
           {vehicle.cost_in_credits === "unknown" && (
@@ -121,7 +131,7 @@ function Modal({ vehicle }) {
           )}
         </>
       )}
-    </div>
+    </StyledDiv>
   );
 }
 

@@ -12,6 +12,9 @@ const StyledA = styled.a`
 const Container = styled.div`
   display: flex;
   color: white;
+  position: relative;
+  bottom: 10px;
+  left: 15%;
 `;
 
 function Pagination({ totalNumberOfVehicles, vehiclesPerPage }) {

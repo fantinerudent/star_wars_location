@@ -9,14 +9,18 @@ const StyledTitle = styled.h1`
   color: pink;
   display: inline-block;
   font-size: 2em;
-  height: 100px;
+  height: 30%;
   margin: 15px 0 0 20px;
 `;
 const CardWrapper = styled.div`
-  font-size: 1em;
+  font-size: 0.5em;
   display: flex;
+  position:relative;
   flex-wrap: wrap;
-  width: 30%;
+  min-width: 25%;
+  min-height: 30vh;
+  width: fit-content;
+  height: fit-content;
   border-radius: 30px;
   flex-direction: column;
   background-image: url(${bgimg});
@@ -28,11 +32,11 @@ const StyledImage = styled.img`
   align-self: center;
   border-radius: 30px;
   margin: 20px;
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
+  opacity: 0.5;
   &:hover {
-    height: 210px;
-    width: 210px;
+    opacity: 1;
   }
 `;
 const NotAvailable = styled.div`
@@ -45,7 +49,7 @@ const NotAvailable = styled.div`
 `;
 function Vehicles({ currentVehicles, loading }) {
   return (
-    <>
+    <> 
       {loading && <h1> Loading.... </h1>}
       {currentVehicles?.map((vehicle) => {
         return (

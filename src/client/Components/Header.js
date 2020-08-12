@@ -7,7 +7,7 @@ const StyledDiv = styled.div`
   top:0;
   background-color: black;
   color: white;
-  font-size: 4em;
+  font-size: 3em;
   &:first-child  {
     margin: 0;
     text-align: center;

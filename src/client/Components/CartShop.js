@@ -14,11 +14,12 @@ const Container = styled.div`
 `;
 
 const TitleDisplay = styled.span`
-  font-size: 2em;
+  font-size: 1.5em;
   color: yellow;
   font-weight: bold;
 `;
 const ItemContainer = styled.div`
+  margin-bottom: 10px;
   border: yellow 2px solid;
   padding: 10px;
   border-radius: 10px;
@@ -26,11 +27,10 @@ const ItemContainer = styled.div`
 
 function CartShop() {
   const { cartShopping } = useContext(CartShoppingContext);
-
+  
   let sum = 0;
   if (cartShopping) {
     cartShopping.map((vehicule) => {
-      console.log(typeof vehicule[0].cost_in_credits);
       let result = Number(vehicule[0].cost_in_credits);
       return (sum = sum + result);
     });
@@ -60,7 +60,7 @@ function CartShop() {
             );
           }
         })}
-      <TitleDisplay> Total : ${sum} </TitleDisplay>
+      <TitleDisplay> Total : ${sum}$ </TitleDisplay>
     </Container>
   );
 }
