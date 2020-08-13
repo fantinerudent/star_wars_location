@@ -32,7 +32,7 @@ function Pagination({ totalNumberOfVehicles, vehiclesPerPage }) {
     <Container>
       {pageNumbers.map((number) => (
         <li key={number}>
-         Page : <StyledA onClick={() => {setCurrentPage(number)}} href="!#"> {number}</StyledA>
+         Page : <StyledA onClick={() => {setCurrentPage(number)}} href="#"> {number}</StyledA>
         </li>
       ))}
     </Container>
