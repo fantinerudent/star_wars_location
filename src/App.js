@@ -33,7 +33,7 @@ function App() {
   const [totalNumberOfVehicles, setTotalNumberOfVehicles] = useState();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [vehiclesPerPage] = useState(6);
+  const vehiclesPerPage = 6 ;
 
   useEffect(() => {
     const fetchVehicles = async () => {
