@@ -14,31 +14,46 @@ const StyledTitle = styled.h1`
 `;
 const CardWrapper = styled.div`
   font-size: 0.5em;
-  display: flex;
-  position:relative;
-  flex-wrap: wrap;
-  min-width: 25%;
-  min-height: 30vh;
-  width: fit-content;
-  height: fit-content;
-  border-radius: 30px;
-  flex-direction: column;
   background-image: url(${bgimg});
   background-size: cover;
-  margin: 10px;
+  margin: 20px;
+  border-radius: 30px;
+  flex-direction: column;
+  display: flex;
+
+  @media screen and (min-width: 1200px) {
+    position: relative;
+    flex-wrap: wrap;
+    min-width: 25%;
+    max-width: 16vw;
+    min-height: 30vh;
+    width: fit-content;
+    height: fit-content;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 50%;
+    height: fit-content;
+  }
 `;
 const StyledImage = styled.img`
   position: relative;
   align-self: center;
   border-radius: 30px;
   margin: 20px;
-  height: 100px;
-  width: 100px;
+  @media screen and (max-width: 1200px) {
+    height: 150px;
+    width: 150px;
+  }
+  @media screen and (min-width: 1200px) {
+    height: 100px;
+    width: 100px;
+  }
   opacity: 0.5;
   &:hover {
     opacity: 1;
   }
 `;
+
 const NotAvailable = styled.div`
   background-color: red;
   color: black;
@@ -49,7 +64,7 @@ const NotAvailable = styled.div`
 `;
 function Vehicles({ currentVehicles, loading }) {
   return (
-    <> 
+    <>
       {loading && <h1> Loading.... </h1>}
       {currentVehicles?.map((vehicle) => {
         return (

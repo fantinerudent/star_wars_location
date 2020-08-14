@@ -10,10 +10,21 @@ import styled from "styled-components";
 import "./App.css";
 
 const VehiclesContainer = styled.div`
+  @media screen and (min-width: 1200px) {
+  display:none;
   display: flex;
   flex-wrap: wrap;
   height: 85vh;
+  max-width: 85vw;
+  };
+  @media screen and (max-width: 1200px) {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  max-width: 80vw;
+  };
 `;
+
 
 function App() {
   const [cartShopping, setCartShopping] = useState([]);
@@ -81,6 +92,7 @@ function App() {
     indexOfFirstVehicle,
     indexOfLastVehicle
   );
+
 
   return (
     <CartShoppingProvider value={providerValue}>

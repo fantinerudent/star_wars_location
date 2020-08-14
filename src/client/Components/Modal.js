@@ -24,7 +24,7 @@ const Button = styled.button`
     background-color: #dfdfdf;
   }
 `;
-const StyledDiv = styled.div`
+const VehicleContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -35,7 +35,7 @@ const StyledP = styled.p`
   color: yellow;
   position: relative;
   margin: 0 auto;
-  font-size: 2em;
+  font-size: 1vw;
 `;
 
 function Modal({ vehicle }) {
@@ -76,7 +76,7 @@ function Modal({ vehicle }) {
   };
 
   return (
-    <StyledDiv>
+    <VehicleContainer>
       <Button
         id={`${vehicle.name}button-modal`}
         onClick={(event) => handleClickModal(event)}
@@ -88,9 +88,9 @@ function Modal({ vehicle }) {
           <table
             style={{
               color: "white",
-              fontSize: "2em",
+              fontSize: "1.2vw",
               position: "relative",
-              maxWidth: "400px",
+              // maxWidth: "400px",
               alignSelf: "center"
             }}
             border="2"
@@ -131,7 +131,7 @@ function Modal({ vehicle }) {
           )}
         </>
       )}
-    </StyledDiv>
+    </VehicleContainer>
   );
 }
 
