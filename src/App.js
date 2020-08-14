@@ -28,7 +28,7 @@ const VehiclesContainer = styled.div`
 
 function App() {
   const [cartShopping, setCartShopping] = useState([]);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [isModalOpen, setModalOpen] = useState(false);
   const [listOfVehicles, setListOfVehicles] = useState([]);
   const [totalNumberOfVehicles, setTotalNumberOfVehicles] = useState();
   const [loading, setLoading] = useState(false);
@@ -74,8 +74,6 @@ function App() {
 
   const providerValue = useMemo(
     () => ({
-      isModalOpen,
-      setModalOpen,
       cartShopping,
       setCartShopping,
       setCurrentPage,
@@ -83,7 +81,7 @@ function App() {
       loading,
       setLoading,
     }),
-    [isModalOpen, cartShopping, listOfVehicles, loading]
+    [cartShopping, listOfVehicles, loading]
   );
 
   const indexOfLastVehicle = currentPage * vehiclesPerPage;

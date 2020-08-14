@@ -20,7 +20,6 @@ const StyledDiv = styled.div`
    }
 `
 
-
 function Header() {
   return (
     <StyledDiv>
