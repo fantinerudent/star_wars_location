@@ -38,6 +38,28 @@ const StyledP = styled.p`
   font-size: 1vw;
 `;
 
+const StyledTable = styled.table`
+  & th {
+    border: 1px solid yellow;
+    color: red;
+  }
+  & td {
+    border: 1px solid pink;
+  }
+  color: white;
+  @media screen and (min-width: 1200px) {
+    font-size: 1.2vw;
+  }
+  @media screen and (max-width: 1200px) {
+    font-size: 2vw;
+  }
+  position: relative;
+  align-self: center;
+  border-collapse: separate;
+  border: 2px white double;
+  box-sizing: border-box;
+`;
+
 function Modal({ vehicle }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isVehicleBooked, setVehicleBooked] = useState(vehicle.booked);
@@ -85,19 +107,10 @@ function Modal({ vehicle }) {
       </Button>
       {isModalOpen && (
         <>
-          <table
-            style={{
-              color: "white",
-              fontSize: "1.2vw",
-              position: "relative",
-              // maxWidth: "400px",
-              alignSelf: "center"
-            }}
-            border="2"
-          >
+          <StyledTable>
             <tbody>
               <tr>
-                <th> Model : </th>
+                <th>Model : </th>
                 <th> Number of seats : </th>
                 <th> Cost: </th>
               </tr>
@@ -109,7 +122,7 @@ function Modal({ vehicle }) {
                 <td>{vehicle.cost_in_credits}</td>
               </tr>
             </tbody>
-          </table>
+          </StyledTable>
 
           {vehicle.cost_in_credits !== "unknown" && (
             <Button
@@ -123,7 +136,7 @@ function Modal({ vehicle }) {
                 )
               }
             >
-              {isVehicleBooked ? 'Cancel reservation' : 'Make a reservation'}
+              {isVehicleBooked ? "Cancel reservation" : "Make a reservation"}
             </Button>
           )}
           {vehicle.cost_in_credits === "unknown" && (

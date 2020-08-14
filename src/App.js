@@ -100,11 +100,11 @@ function App() {
         <CartShop />
         <VehiclesContainer>
           <Vehicles currentVehicles={currentVehicles} loading={loading} />
-        </VehiclesContainer>
         <Pagination
           vehiclesPerPage={vehiclesPerPage}
           totalNumberOfVehicles={totalNumberOfVehicles}
         />
+        </VehiclesContainer>
     </CartShoppingProvider>
   );
 }

@@ -31,8 +31,10 @@ const CardWrapper = styled.div`
     height: fit-content;
   }
   @media screen and (max-width: 1200px) {
-    width: 50%;
+    width: 100%;
     height: fit-content;
+    position: relative;
+    left: 10%;
   }
 `;
 const StyledImage = styled.img`
