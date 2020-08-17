@@ -11,29 +11,26 @@ import "./App.css";
 
 const VehiclesContainer = styled.div`
   @media screen and (min-width: 1200px) {
-  display:none;
-  display: flex;
-  flex-wrap: wrap;
-  height: 85vh;
-  max-width: 85vw;
-  };
+    display: flex;
+    flex-wrap: wrap;
+    height: 85vh;
+    max-width: 85vw;
+  }
   @media screen and (max-width: 1200px) {
-  display: flex;
-  flex-direction:row;
-  flex-wrap: wrap;
-  max-width: 80vw;
-  };
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 80vw;
+  }
 `;
-
 
 function App() {
   const [cartShopping, setCartShopping] = useState([]);
-  // const [isModalOpen, setModalOpen] = useState(false);
   const [listOfVehicles, setListOfVehicles] = useState([]);
   const [totalNumberOfVehicles, setTotalNumberOfVehicles] = useState();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const vehiclesPerPage = 6 ;
+  const vehiclesPerPage = 6;
 
   useEffect(() => {
     const fetchVehicles = async () => {
@@ -72,6 +69,10 @@ function App() {
     fetchVehicles();
   }, []);
 
+  useEffect(() => {
+    console.log('pouet')
+  }, [cartShopping, setCartShopping] )
+
   const providerValue = useMemo(
     () => ({
       cartShopping,
@@ -81,7 +82,7 @@ function App() {
       loading,
       setLoading,
     }),
-    [cartShopping, listOfVehicles, loading]
+    [setCartShopping, cartShopping, listOfVehicles, loading]
   );
 
   const indexOfLastVehicle = currentPage * vehiclesPerPage;
@@ -91,18 +92,17 @@ function App() {
     indexOfLastVehicle
   );
 
-
   return (
     <CartShoppingProvider value={providerValue}>
-        <Header />
-        <CartShop />
-        <VehiclesContainer>
-          <Vehicles currentVehicles={currentVehicles} loading={loading} />
+      <Header />
+      <CartShop />
+      <VehiclesContainer>
+        <Vehicles currentVehicles={currentVehicles} loading={loading} />
         <Pagination
           vehiclesPerPage={vehiclesPerPage}
           totalNumberOfVehicles={totalNumberOfVehicles}
         />
-        </VehiclesContainer>
+      </VehiclesContainer>
     </CartShoppingProvider>
   );
 }

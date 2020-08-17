@@ -71,13 +71,20 @@ const ItemContainer = styled.div`
 function CartShop() {
   const { cartShopping } = useContext(CartShoppingContext);
 
+
   let sum = 0;
   if (cartShopping) {
-    cartShopping.map((vehicule) => {
-      let result = Number(vehicule[0].cost_in_credits);
-      return (sum = sum + result);
-    });
-  }
+    for (let i=0; i < cartShopping.length; i++) {
+      sum += Number(cartShopping[i][0].cost_in_credits);
+    }}
+  //   const result = (previousValue, currentValue) => previousValue + currentValue;
+  //   console.log('cartshopping pour SUm',cartShopping)
+  //   // cartShopping.reduce(result(cartShopping[0]?.cost_in_credits, sum));
+  //   // cartShopping.map((vehicule) => {
+  //   //   let result = Number(vehicule[0].cost_in_credits);
+  //   //   return (sum = sum + result);
+  //   // });
+  // }
 
   return (
     <Container>
