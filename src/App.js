@@ -36,34 +36,22 @@ function App () {
     const fetchVehicles = async () => {
       setLoading(true)
       const arrayOfVehicles = []
-      let resPage1 = await axios.get('https://swapi.dev/api/vehicles/?page=1')
-      let resPage2 = await axios.get('https://swapi.dev/api/vehicles/?page=2')
-      let resPage3 = await axios.get('https://swapi.dev/api/vehicles/?page=3')
-      let resPage4 = await axios.get('https://swapi.dev/api/vehicles/?page=4')
+      const resPage1 = await axios.get('https://swapi.dev/api/vehicles/?page=1')
+      const resPage2 = await axios.get('https://swapi.dev/api/vehicles/?page=2')
+      const resPage3 = await axios.get('https://swapi.dev/api/vehicles/?page=3')
+      const resPage4 = await axios.get('https://swapi.dev/api/vehicles/?page=4')
 
-      resPage1 = resPage1.data.results
-      resPage1.map((vehicle) => {
-        vehicle.booked = false
-        arrayOfVehicles.push(vehicle)
+      Promise.all([resPage1, resPage2, resPage3, resPage4]).then((values) => {
+        for (let i = 0; i < values.length; i++) {
+          values[i].data.results.map((vehicle) => {
+            { vehicle.booked = false
+              arrayOfVehicles.push(vehicle) }
+          })
+        }
+        setListOfVehicles(arrayOfVehicles)
+        setTotalNumberOfVehicles(arrayOfVehicles.length)
+        setLoading(false)
       })
-      resPage2 = resPage2.data.results
-      resPage2.map((vehicle) => {
-        vehicle.booked = false
-        arrayOfVehicles.push(vehicle)
-      })
-      resPage3 = resPage3.data.results
-      resPage3.map((vehicle) => {
-        vehicle.booked = false
-        arrayOfVehicles.push(vehicle)
-      })
-      resPage4 = resPage4.data.results
-      resPage4.map((vehicle) => {
-        vehicle.booked = false
-        arrayOfVehicles.push(vehicle)
-      })
-      setListOfVehicles(arrayOfVehicles)
-      setTotalNumberOfVehicles(arrayOfVehicles.length)
-      setLoading(false)
     }
 
     fetchVehicles()

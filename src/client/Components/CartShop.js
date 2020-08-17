@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import CartShoppingContext from "../Contexts/CartShopping";
-import styled from "styled-components";
+import React, { useContext } from 'react'
+import CartShoppingContext from '../Contexts/CartShopping'
+import styled from 'styled-components'
 
 const Container = styled.div`
   @media screen and (min-width: 1200px) {
@@ -34,13 +34,13 @@ const Container = styled.div`
   font-size: 1.6vw;
   color: white;
   background-color: black;
-`;
+`
 
 const TitleDisplay = styled.span`
   font-size: 1.5vw;
   color: yellow;
   font-weight: bold;
-`;
+`
 
 const Sum = styled.span`
   font-size: 2.5vw;
@@ -52,7 +52,7 @@ const Sum = styled.span`
     display: flex;
     align-items: center;
   }
-`;
+`
 
 const ItemContainer = styled.div`
 @media screen and (min-width: 1200px) {
@@ -66,25 +66,17 @@ const ItemContainer = styled.div`
   width: 85%;
   padding: 10px;
   border-radius: 10px;
-`;
+`
 
-function CartShop() {
-  const { cartShopping } = useContext(CartShoppingContext);
+function CartShop () {
+  const { cartShopping } = useContext(CartShoppingContext)
 
-
-  let sum = 0;
+  let sum = 0
   if (cartShopping) {
-    for (let i=0; i < cartShopping.length; i++) {
-      sum += Number(cartShopping[i][0].cost_in_credits);
-    }}
-  //   const result = (previousValue, currentValue) => previousValue + currentValue;
-  //   console.log('cartshopping pour SUm',cartShopping)
-  //   // cartShopping.reduce(result(cartShopping[0]?.cost_in_credits, sum));
-  //   // cartShopping.map((vehicule) => {
-  //   //   let result = Number(vehicule[0].cost_in_credits);
-  //   //   return (sum = sum + result);
-  //   // });
-  // }
+    for (let i = 0; i < cartShopping.length; i++) {
+      sum += Number(cartShopping[i][0].cost_in_credits)
+    }
+  }
 
   return (
     <Container>
@@ -100,19 +92,19 @@ function CartShop() {
                 <br />
                 <TitleDisplay>crew:</TitleDisplay> {vehicule[i].crew}
                 <br />
-                <TitleDisplay>passengers:</TitleDisplay>{" "}
+                <TitleDisplay>passengers:</TitleDisplay>{' '}
                 {vehicule[i].passengers}
                 <br />
-                <TitleDisplay>price:</TitleDisplay>{" "}
+                <TitleDisplay>price:</TitleDisplay>{' '}
                 {vehicule[i].cost_in_credits}
                 <br />
               </ItemContainer>
-            );
+            )
           }
         })}
       <Sum> Total : {sum}$ </Sum>
     </Container>
-  );
+  )
 }
 
-export default CartShop;
+export default CartShop
