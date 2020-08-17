@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
-import CartShoppingContext from "../Contexts/CartShopping";
-import axios from "axios";
-import styled from "styled-components";
+/* eslint-disable react/prop-types */
+import React, { useState, useContext } from 'react'
+import CartShoppingContext from '../Contexts/CartShopping'
+import axios from 'axios'
+import styled from 'styled-components'
 
 const Button = styled.button`
   width: 100%;
@@ -23,12 +24,12 @@ const Button = styled.button`
     background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
     background-color: #dfdfdf;
   }
-`;
+`
 const VehicleContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-`;
+`
 
 const StyledP = styled.p`
   text-decoration: underline;
@@ -36,7 +37,7 @@ const StyledP = styled.p`
   position: relative;
   margin: 0 auto;
   font-size: 1vw;
-`;
+`
 
 const StyledTable = styled.table`
   & th {
@@ -58,44 +59,46 @@ const StyledTable = styled.table`
   border-collapse: separate;
   border: 2px white double;
   box-sizing: border-box;
-`;
+`
 
-function Modal({ vehicle }) {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isVehicleBooked, setVehicleBooked] = useState(vehicle.booked);
-  const { cartShopping, setCartShopping } = useContext(CartShoppingContext);
+// eslint-disable-next-line react/prop-types
+function Modal ({ vehicle }) {
+  const [isModalOpen, setModalOpen] = useState(false)
+  // eslint-disable-next-line react/prop-types
+  const [isVehicleBooked, setVehicleBooked] = useState(vehicle.booked)
+  const { cartShopping, setCartShopping } = useContext(CartShoppingContext)
 
   const handleClick = async (event, vehicle, nameVehicule, idButton) => {
     if (!isVehicleBooked) {
-      let newCartValue = [...cartShopping];
+      const newCartValue = [...cartShopping]
       await axios
         .get(`https://swapi.dev/api/vehicles/?search=${nameVehicule}`)
         .then((res) => {
-          newCartValue.push(res.data.results);
-        });
-      setCartShopping(newCartValue);
+          newCartValue.push(res.data.results)
+        })
+      setCartShopping(newCartValue)
     } else if (isVehicleBooked) {
       for (let i = 0; i < cartShopping.length; i++) {
         if (cartShopping[i][0].name.includes(nameVehicule)) {
           const index = cartShopping.findIndex(
             (item) => item[0].name === nameVehicule
-          );
+          )
           // if I didn't do a copy I'd have something going wrong with the slice.
-          let copyArrayCartShopping = [...cartShopping];
-          copyArrayCartShopping.splice(index, 1);
-          setCartShopping(copyArrayCartShopping);
+          const copyArrayCartShopping = [...cartShopping]
+          copyArrayCartShopping.splice(index, 1)
+          setCartShopping(copyArrayCartShopping)
         }
       }
     }
-    vehicle.booked = !vehicle.booked;
-    setVehicleBooked(vehicle.booked);
-    setModalOpen(!isModalOpen);
-  };
+    vehicle.booked = !vehicle.booked
+    setVehicleBooked(vehicle.booked)
+    setModalOpen(!isModalOpen)
+  }
 
   const handleClickModal = (event, modalId) => {
-    event.preventDefault();
-    setModalOpen(!isModalOpen);
-  };
+    event.preventDefault()
+    setModalOpen(!isModalOpen)
+  }
 
   return (
     <VehicleContainer>
@@ -103,7 +106,7 @@ function Modal({ vehicle }) {
         id={`${vehicle.name}button-modal`}
         onClick={(event) => handleClickModal(event)}
       >
-        {isModalOpen ? "show less" : "show more"}
+        {isModalOpen ? 'show less' : 'show more'}
       </Button>
       {isModalOpen && (
         <>
@@ -124,7 +127,7 @@ function Modal({ vehicle }) {
             </tbody>
           </StyledTable>
 
-          {vehicle.cost_in_credits !== "unknown" && (
+          {vehicle.cost_in_credits !== 'unknown' && (
             <Button
               id={`${vehicle.name}button`}
               onClick={(event) =>
@@ -136,16 +139,16 @@ function Modal({ vehicle }) {
                 )
               }
             >
-              {isVehicleBooked ? "Cancel reservation" : "Make a reservation"}
+              {isVehicleBooked ? 'Cancel reservation' : 'Make a reservation'}
             </Button>
           )}
-          {vehicle.cost_in_credits === "unknown" && (
-            <StyledP> this vehicule isn't available </StyledP>
+          {vehicle.cost_in_credits === 'unknown' && (
+            <StyledP> this vehicule isn`t available </StyledP>
           )}
         </>
       )}
     </VehicleContainer>
-  );
+  )
 }
 
-export default Modal;
+export default Modal

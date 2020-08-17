@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
-import Modal from "../Components/Modal";
-import img from "../../assets/starfighter.jpeg";
-import bgimg from "../../assets/galaxy.jpg";
+import Modal from '../Components/Modal'
+import img from '../../assets/starfighter.jpeg'
+import bgimg from '../../assets/galaxy.jpg'
 // STYLE -
 const StyledTitle = styled.h1`
   color: pink;
@@ -11,7 +11,7 @@ const StyledTitle = styled.h1`
   font-size: 2em;
   height: 30%;
   margin: 15px 0 0 20px;
-`;
+`
 const CardWrapper = styled.div`
   font-size: 0.5em;
   background-image: url(${bgimg});
@@ -36,7 +36,7 @@ const CardWrapper = styled.div`
     position: relative;
     left: 10%;
   }
-`;
+`
 const StyledImage = styled.img`
   position: relative;
   align-self: center;
@@ -54,7 +54,7 @@ const StyledImage = styled.img`
   &:hover {
     opacity: 1;
   }
-`;
+`
 
 const NotAvailable = styled.div`
   background-color: red;
@@ -63,27 +63,30 @@ const NotAvailable = styled.div`
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
-`;
-function Vehicles({ currentVehicles, loading }) {
+`
+
+// eslint-disable-next-line react/prop-types
+function Vehicles ({ currentVehicles, loading }) {
   return (
     <>
       {loading && <h1> Loading.... </h1>}
+      {/* eslint-disable-next-line react/prop-types */}
       {currentVehicles?.map((vehicle) => {
         return (
           <CardWrapper key={`${vehicle.name}wrapper`}>
             <StyledTitle>
               {vehicle.name}
-              {vehicle.cost_in_credits === "unknown" && (
+              {vehicle.cost_in_credits === 'unknown' && (
                 <NotAvailable> Not available</NotAvailable>
               )}
             </StyledTitle>
             <StyledImage src={img} id={`${vehicle.name}img`} />
             <Modal vehicle={vehicle} />
           </CardWrapper>
-        );
+        )
       })}
     </>
-  );
+  )
 }
 
-export default Vehicles;
+export default Vehicles
