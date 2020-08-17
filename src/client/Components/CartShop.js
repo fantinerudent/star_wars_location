@@ -12,7 +12,6 @@ const Container = styled.div`
     overflow: scroll;
     border-left: 2px white solid;
     padding-left: 10px;
-
   }
   @media screen and (max-width: 1200px) {
     display: flex;
@@ -21,16 +20,16 @@ const Container = styled.div`
     position: relative;
     height: 20%;
     width: 90vw;
-    align-content:center;
+    align-content: center;
     border: 3px solid white;
     & > h2 {
       position: relative;
       margin: 0 20px;
     }
   }
-    & > h2 {
-      color: red;
-    }
+  & > h2 {
+    color: red;
+  }
   font-size: 1.6vw;
   color: white;
   background-color: black;
@@ -55,12 +54,12 @@ const Sum = styled.span`
 `
 
 const ItemContainer = styled.div`
-@media screen and (min-width: 1200px) {
-  margin-bottom: 10px;
-}
-@media screen and (max-width: 1200px) {
-  margin: 10px 10px 0px 20px;
-}
+  @media screen and (min-width: 1200px) {
+    margin-bottom: 10px;
+  }
+  @media screen and (max-width: 1200px) {
+    margin: 10px 10px 0px 20px;
+  }
   border: yellow 2px solid;
   position: relative;
   width: 85%;
@@ -82,25 +81,21 @@ function CartShop () {
     <Container>
       <h2> CARTSHOP :</h2>
       {cartShopping &&
-        cartShopping.map((vehicule) => {
-          for (let i = 0; i < cartShopping.length; i++) {
-            return (
-              <ItemContainer key={`${vehicule[i].name}key`}>
-                <TitleDisplay>name:</TitleDisplay> {vehicule[i].name}
-                <br />
-                <TitleDisplay>model:</TitleDisplay> {vehicule[i].model}
-                <br />
-                <TitleDisplay>crew:</TitleDisplay> {vehicule[i].crew}
-                <br />
-                <TitleDisplay>passengers:</TitleDisplay>{' '}
-                {vehicule[i].passengers}
-                <br />
-                <TitleDisplay>price:</TitleDisplay>{' '}
-                {vehicule[i].cost_in_credits}
-                <br />
-              </ItemContainer>
-            )
-          }
+        cartShopping.map((vehicle) => {
+          return (
+            <ItemContainer key={`${vehicle[0].name}key`}>
+              <TitleDisplay>name:</TitleDisplay> {vehicle[0].name}
+              <br />
+              <TitleDisplay>model:</TitleDisplay> {vehicle[0].model}
+              <br />
+              <TitleDisplay>crew:</TitleDisplay> {vehicle[0].crew}
+              <br />
+              <TitleDisplay>passengers:</TitleDisplay> {vehicle[0].passengers}
+              <br />
+              <TitleDisplay>price:</TitleDisplay> {vehicle[0].cost_in_credits}
+              <br />
+            </ItemContainer>
+          )
         })}
       <Sum> Total : {sum}$ </Sum>
     </Container>
